@@ -11,6 +11,21 @@
 <div>
     <h2>User INFO</h2>
     <h1>Пока не реализован</h1>
+<table>
+    <tr>
+        <th th:width="100" >ROLE</th>
+        <th th:width="150" >USERNAME</th>
+        <th th:width="100" >Password</th>
+    </tr>
+    <tr th:object= "${user}">
+        <td th:width="100" th:each="role : ${user.getAuthorities()}" th:text="${role.authority}"></td>
+        <td th:width="150" th:utext="${user.getUsername()}"></td>
+        <td th:width="100" th:utext="${user.getPassword()}"></td>
+    </tr>
+</table>
+
+        <h4><a href="/logout">Выйти</a></h4>
+
 </div>
 </body>
 </html>

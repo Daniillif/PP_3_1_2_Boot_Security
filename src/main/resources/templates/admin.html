@@ -6,20 +6,23 @@
 </head>
 <body>
 <h1>List of Users</h1>
+
+    <h4><a href="/logout">Выйти</a></h4>
+
 <table>
     <tr>
         <th th:width="100" >Id</th>
         <th th:width="100" >Name</th>
+        <th th:width="100" >Login</th>
         <th th:width="100" >Password</th>
-        <th th:width="100" >Email</th>
-        <th th:width="100" >Phone</th>
-        <th th:width="100" >Address</th>
+        <th th:width="100" >Role</th>
     </tr>
     <tr th:each = "user : ${users}">
         <td th:width="100" th:utext="${user.getId()}"></td>
-        <td th:width="100" th:utext="${user.getName()}"></td>
+        <td th:width="100" th:utext="${user.getUsername()}"></td>
         <td th:width="100" th:utext="${user.getLogin()}"></td>
         <td th:width="100" th:utext="${user.getPassword()}"></td>
+        <td th:width="100" th:each="role : ${user.getRoles()}" th:text="${role.name}"></td>
     </tr>
 </table>
 <br>
@@ -35,12 +38,12 @@
         <th th:width="180">Enter login:</th>
     </tr>
 </table>
-<form th:method="POST" th:action="@{/users/create}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/create}" th:object="${user}">
 
     <label for="name"></label>
     <label for="password"></label>
     <label for="login"></label>
-    <input type="text" th:field="*{name}" id="name" />
+    <input type="text" th:field="*{username}" id="name" />
     <input type="text" th:field="*{password}" id="password" />
     <input type="text" th:field="*{login}" id="login" />
 
@@ -62,13 +65,13 @@
 
     </tr>
 </table>
-<form th:method="POST" th:action="@{/users/update}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/update}" th:object="${user}">
     <label for="id1"></label>
     <label for="name1"></label>
     <label for="password1"></label>
     <label for="login1"></label>
     <input type="text" th:field="*{id}" id="id1" />
-    <input type="text" th:field="*{name}" id="name1" />
+    <input type="text" th:field="*{username}" id="name1" />
     <input type="text" th:field="*{password}" id="password1" />
     <input type="text" th:field="*{login}" id="login1" />
     <br>
@@ -81,7 +84,7 @@
 <br>
 <br>
 <h2>ID to Delete</h2>
-<form th:method="POST" th:action="@{/users/delete}" >
+<form th:method="POST" th:action="@{/admin/delete}" >
     <label for="idToDelete"></label>
     <input type="text" th:name="id" id="idToDelete" />
     <br>
