@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @Transactional
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsername(username);
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Transactional(readOnly = true)
+
     public List<User> allUsers() {
         return userDao.findAll();
     }
