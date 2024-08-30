@@ -25,8 +25,12 @@ public class DBInit {
 
     @PostConstruct
     public void init() {
-        userService.saveUser(new User("Ivan1","1111","1111",roleService.saveRole(new Role(1L, "ADMIN"))));
-        userService.saveUser(new User("Ivan2","2222","2222",roleService.saveRole(new Role(2L, "USER"))));
+        Role admin = roleService.saveRole(new Role("ADMIN"));
+        Role user = roleService.saveRole(new Role("USER"));
+        User user1 = userService.saveUser(new User("Ivan1","1111","1111",roleService.saveRole(admin)));
+        User user2 =userService.saveUser(new User("Ivan2","2222","2222",roleService.saveRole(user)));
+        userService.addRole(user2,admin);
+
 
 
 

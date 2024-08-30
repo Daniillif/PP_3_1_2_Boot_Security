@@ -8,17 +8,24 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
 public class MainController {
+
+    private UserService userService;
+
     @Autowired
-    UserService userService;
+    public MainController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/")
     public String index() {
         return "index";
     }
+
     @GetMapping("/login")
     public String login() {
         return "/login";
     }
+
     @PostMapping("/login")
     public String loginPost() {
 

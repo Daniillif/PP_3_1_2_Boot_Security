@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -30,6 +29,10 @@ public class User implements UserDetails {
     @Column(name="login")
     private String login;
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles=new HashSet<>();
 
 

@@ -46,7 +46,10 @@
     <input type="text" th:field="*{username}" id="name" />
     <input type="text" th:field="*{password}" id="password" />
     <input type="text" th:field="*{login}" id="login" />
-
+    <select th:name="role">
+        <option value="2">User</option>
+        <option value="1">Admin</option>
+    </select>
     <br>
     <input type="submit" value="Create!" />
 </form>
@@ -74,6 +77,10 @@
     <input type="text" th:field="*{username}" id="name1" />
     <input type="text" th:field="*{password}" id="password1" />
     <input type="text" th:field="*{login}" id="login1" />
+    <select th:name="role1">
+        <option value="2">User</option>
+        <option value="1">Admin</option>
+    </select>
     <br>
     <input type="submit" value="Update!" />
 </form>
@@ -81,6 +88,16 @@
 <br>
 <br>
 <br>
+<form th:method="POST" th:action="@{/admin/addRole}" >
+    <label for="userId"></label>
+    <input type="text" th:name="userId" id="userId" />
+    <select th:name="roleId">
+        <option value="2">User</option>
+        <option value="1">Admin</option>
+    </select>
+    <br>
+    <input type="submit" value="addRole!" />
+</form>
 <br>
 <br>
 <h2>ID to Delete</h2>

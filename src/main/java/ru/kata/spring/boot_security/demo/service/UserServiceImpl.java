@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
@@ -43,15 +44,26 @@ public class UserServiceImpl implements UserService {
 
 
     @Transactional
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userDao.save(user);
+            userDao.save(user);
+        return user;
+    }
+    @Transactional
+    public void addRole(User user,Role role) {
+        userDao.addRole(user,role);
+    }
+
+    @Override
+    public User getUserById(Integer userId) {
+        return userDao.getById(Long.valueOf(userId));
     }
 
 
     @Transactional
     @Override
     public void updateUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
 

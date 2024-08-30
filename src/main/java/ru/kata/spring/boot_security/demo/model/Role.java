@@ -9,13 +9,13 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "Roles")
 public class Role implements GrantedAuthority {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "name",unique = true)
@@ -24,9 +24,7 @@ public class Role implements GrantedAuthority {
    @ManyToMany(mappedBy = "roles")
    private Set<User> users;
 
-
-    public Role(long l, String roleUser) {
-        this.id = l;
+    public Role(String roleUser) {
         this.name = roleUser;
     }
 
