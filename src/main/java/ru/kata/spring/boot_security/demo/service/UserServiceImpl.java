@@ -11,6 +11,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -50,8 +51,8 @@ public class UserServiceImpl implements UserService {
         return user;
     }
     @Transactional
-    public void addRole(User user,Role role) {
-        userDao.addRole(user,role);
+    public void addRole(User user, Set<Role> roles) {
+        userDao.addRole(user,roles);
     }
 
     @Override

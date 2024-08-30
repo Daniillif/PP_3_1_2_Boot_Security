@@ -10,6 +10,8 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.annotation.PostConstruct;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class DBInit {
@@ -29,7 +31,9 @@ public class DBInit {
         Role user = roleService.saveRole(new Role("USER"));
         User user1 = userService.saveUser(new User("Ivan1","1111","1111",roleService.saveRole(admin)));
         User user2 =userService.saveUser(new User("Ivan2","2222","2222",roleService.saveRole(user)));
-        userService.addRole(user2,admin);
+        Set<Role> roles = new HashSet<>();
+        roles.add(admin);
+        userService.addRole(user2,roles);
 
 
 

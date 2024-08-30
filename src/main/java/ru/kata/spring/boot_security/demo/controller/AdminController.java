@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller()
 @RequestMapping("/admin")
@@ -27,33 +28,28 @@ public class AdminController {
         List<User> users = userService.allUsers();
         model.addAttribute("users", users);
         model.addAttribute("user", new User());
+        model.addAttribute("allRoles",roleService.getAllRoles());
         return "/admin";
     }
 
     @PostMapping(value = "/create")
-    public String create(@ModelAttribute("user") User user,@RequestParam(value = "role") Integer id,@RequestParam(value = "role2") Integer id2) {
-        Role role = roleService.getRoleById(id);
-        Role role2 = roleService.getRoleById(id2);
-        user.getRoles().add(role);
-        user.getRoles().add(role2);
+    public String create(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
 
+//в апдейте и креэйт принимать коллекцию ролей(может быть лист айди) чек поинт чтобы галочки были
 
     @PostMapping(value = "/update")
-    public String update(@ModelAttribute("user") User user,@RequestParam(value = "role1") Integer id) {
-        Role role = roleService.getRoleById(id);
-        user.getRoles().add(role);
+    public String update(@ModelAttribute("user") User user) {
         userService.updateUser(user);
         return "redirect:/admin";
     }
     @PostMapping(value = "/addRole")
-    public String addRole(@RequestParam(value = "userId") Integer userId,@RequestParam(value = "roleId") Integer roleId) {
-        Role role = roleService.getRoleById(roleId);
+    public String addRole(@ModelAttribute(value = "user") User userForm,@RequestParam(value = "userId") Integer userId) {
         User user = userService.getUserById(userId);
-        userService.addRole(user,role);
+        userService.addRole(user,userForm.getRoles());
         return "redirect:/admin";
     }
 
