@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+        lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <title>Users List</title>
+
 </head>
 <body>
+<!--<div  th:include="navbar :: navbar"></div>-->
+<div class="container text-center">
 <h1>List of Users</h1>
 
 <h4><a href="/logout">Выйти</a></h4>
@@ -40,7 +54,7 @@
         <tr>
             <td><input type="text" th:field="*{username}" id="username" placeholder="Введите Имя пользователя"/></td>
             <td><input type="password" th:field="*{password}" id="password" placeholder="Введите пароль "/></td>
-            <td><input type="text" th:field="*{login}" id="login" placeholder="Введите логин" /></td>
+            <td><input type="text" th:field="*{login}" id="login" placeholder="Введите логин"/></td>
         </tr>
         <tr th:each="role : ${allRoles}">
             <td>
@@ -65,7 +79,7 @@
     <label for="login1"></label>
     <table>
         <tr>
-            <td><input type="text" th:field="*{id}" id="id1" placeholder="Введите Id пользователя" /></td>
+            <td><input type="text" th:field="*{id}" id="id1" placeholder="Введите Id пользователя"/></td>
             <td><input type="text" th:field="*{username}" id="name1" placeholder="Введите Имя пользователя"/></td>
             <td><input type="password" th:field="*{password}" id="password1" placeholder="Введите пароль"/></td>
             <td><input type="text" th:field="*{login}" id="login1" placeholder="Введите логин"/></td>
@@ -84,7 +98,8 @@
 
 <br>
 <br>
-<br><h2>AddRole to User</h2>
+<br>
+<h2>AddRole to User</h2>
 <form th:method="POST" th:action="@{/admin/addRole}" th:object="${user}">
     <label for="userId">ID пользователя:</label>
     <input type="text" th:name="userId" id="userId" placeholder="Введите Id "/>
@@ -101,6 +116,15 @@
     <input type="submit" value="Добавить роль!"/>
 </form>
 <br>
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+</div>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    This content is only shown to administrators.
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+    This content is only shown to users.
+</div>
 <br>
 <h2>ID to Delete</h2>
 <form th:method="POST" th:action="@{/admin/delete}">
@@ -109,6 +133,16 @@
     <br>
     <input type="submit" value="Delete!"/>
 </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

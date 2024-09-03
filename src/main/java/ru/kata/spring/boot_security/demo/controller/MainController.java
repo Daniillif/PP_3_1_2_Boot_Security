@@ -21,16 +21,5 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "/login";
-    }
-
-    @PostMapping("/login")
-    public String loginPost() {
-
-        return "redirect:/index";
-    }
-
 
 }
