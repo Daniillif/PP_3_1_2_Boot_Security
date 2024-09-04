@@ -4,6 +4,7 @@
         <div sec:authorize="isAuthenticated()" style="color: white;">
         <div th:object="${userFromCH}">
             <td th:width="150" th:utext="${userFromCH.getUsername()}"></td>
+            <span> with roles:</span>
             <td th:width="100" th:each="role : ${userFromCH.getAuthorities()}" th:text="${role.authority}"></td>
         </div>
         </div>
