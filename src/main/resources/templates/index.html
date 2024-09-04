@@ -15,20 +15,20 @@
     <title>Главная</title>
     </head>
 <body>
-<!--<div  th:include="navbar :: navbar"></div>-->
+<div th:replace="navbar :: navbar"></div>
 <div class="container text-center">
 <div>
         <h4><a href="/login">Войти</a></h4>
 
 </div>
 <div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
+<!--    This content is only shown to authenticated users.-->
 </div>
 <div sec:authorize="hasRole('ROLE_ADMIN')">
-    This content is only shown to administrators.
+<!--    This content is only shown to administrators.-->
 </div>
 <div sec:authorize="hasRole('ROLE_USER')">
-    This content is only shown to users.
+<!--    This content is only shown to users.-->
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -15,7 +15,7 @@
     <title>UserInfo</title>
 </head>
 <body>
-<!--<div  th:include="navbar :: navbar"></div>-->
+<div th:replace="navbar :: navbar"></div>
 <div class="container text-center">
 <div>
     <h2>User INFO</h2>
@@ -26,24 +26,22 @@
         <th th:width="150" >USERNAME</th>
         <th th:width="100" >Password</th>
     </tr>
-    <tr th:object= "${user}">
-        <td th:width="100" th:each="role : ${user.getAuthorities()}" th:text="${role.authority}"></td>
-        <td th:width="150" th:utext="${user.getUsername()}"></td>
-        <td th:width="100" th:utext="${user.getPassword()}"></td>
+    <tr th:object= "${userFromCH}">
+        <td th:width="100" th:each="role : ${userFromCH.getAuthorities()}" th:text="${role.authority}"></td>
+        <td th:width="150" th:utext="${userFromCH.getUsername()}"></td>
+        <td th:width="100" th:utext="${userFromCH.getPassword()}"></td>
     </tr>
 </table>
 
-        <h4><a href="/logout">Выйти</a></h4>
-
 </div>
 <div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
+<!--    This content is only shown to authenticated users.-->
 </div>
 <div sec:authorize="hasRole('ROLE_ADMIN')">
-    This content is only shown to administrators.
+<!--    This content is only shown to administrators.-->
 </div>
 <div sec:authorize="hasRole('ROLE_USER')">
-    This content is only shown to users.
+<!--    This content is only shown to users.-->
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class AdminController {
         model.addAttribute("users", users);
         model.addAttribute("user", new User());
         model.addAttribute("allRoles",roleService.getAllRoles());
+        model.addAttribute("userFromCH",userService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         return "/admin";
     }
 
@@ -39,7 +41,6 @@ public class AdminController {
     }
 
 
-//в апдейте и креэйт принимать коллекцию ролей(может быть лист айди) чек поинт чтобы галочки были
 
     @PostMapping(value = "/update")
     public String update(@ModelAttribute("user") User user) {
