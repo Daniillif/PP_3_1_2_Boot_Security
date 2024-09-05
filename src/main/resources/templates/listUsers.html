@@ -1,0 +1,26 @@
+<div th:fragment="listUsers">
+    <table class="table table-striped" style="margin-top: 100px;width: fit-content">
+        <thead>
+        <tr>
+            <th style="text-align: left">All Users</th>
+
+        </tr>
+        </thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:utext="${user.id}"></td>
+            <td th:utext="${user.firstname}"></td>
+            <td th:utext="${user.lastname}"></td>
+            <td th:utext="${user.age}"></td>
+            <td th:utext="${user.email}"></td>
+            <td th:each="role : ${user.getRoles()}" th:text="${role.name.substring(5)}"></td>
+        </tr>
+    </table>
+</div>

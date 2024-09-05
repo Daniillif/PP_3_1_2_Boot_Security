@@ -26,238 +26,35 @@
         <a class="btn d-block p-2" href="/user" role="button" style="text-align: left">User</a>
     </div>
     <div class="col" style="background-color: whitesmoke">
-
         <h1 style="text-align: left">Admin panel</h1>
-        <div>
 
-            <table class="table table-striped" style="margin-top: 100px">
-                <thead>
-                <tr>
-                    <th style="text-align: left">All Users</th>
 
-                </tr>
-                </thead>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Age</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                </tr>
-                <tr th:each="user : ${users}">
-                    <td th:utext="${user.id}"></td>
-                    <td th:utext="${user.firstname}"></td>
-                    <td th:utext="${user.lastname}"></td>
-                    <td th:utext="${user.age}"></td>
-                    <td th:utext="${user.email}"></td>
-                    <td th:each="role : ${user.getRoles()}" th:text="${role.name.substring(5)}"></td>
-                </tr>
-            </table>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h2>Add to User List</h2>
-        <div class="container-fluid text-center">
-            <form th:method="POST" th:action="@{/admin/create}" th:object="${user}">
-
-                <label for="username"></label>
-                <label for="lastname"></label>
-                <label for="email"></label>
-                <label for="age"></label>
-                <label for="password"></label>
-
-                <table class="table table-borderless">
-                    <thead >
-                    <tr>
-                        <th style="text-align: left">Add new user</th>
-
-                    </tr>
-                    </thead>
-                    <tr>
-                        <th>First Name</th>
-                    </tr>
-                    <tr>
-                        <td><input type="text" th:field="*{firstname}" id="username"
-                                   placeholder="Введите Имя пользователя"/></td>
-                    </tr>
-                    <tr>
-                        <th>Last Name</th>
-                    </tr>
-                    <tr>
-                        <td><input type="text" th:field="*{lastname}" id="lastname"
-                                   placeholder="Введите фамилию пользователя"/></td>
-                    </tr>
-                    <tr>
-                        <th>Age</th>
-                    </tr>
-                    <tr>
-                        <td><input type="text" th:field="*{age}" id="age"
-                                   placeholder="Введите возраст пользователя"/></td>
-                    </tr>
-                    <tr>
-                        <th>Email</th>
-                    </tr>
-                    <tr>
-                        <td><input type="text" th:field="*{email}" id="email" placeholder="Введите почту/логин"/></td>
-                    </tr>
-                    <tr>
-                        <th>Password</th>
-                    </tr>
-                    <tr>
-                        <td><input type="password" th:field="*{password}" id="password" placeholder="Введите пароль "/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Role</th>
-                    </tr>
-                    <tr th:each="role : ${allRoles}">
-                        <td>
-                            <input type="checkbox" th:field="*{roles}" th:value="${role.id}" id="'role_' + ${role.id}"/>
-                            <label th:for="'role_' + ${role.id}" th:text="${role.name}"></label>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <input type="submit" value="Create!"/>
-            </form>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br><!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-            Edit
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="editModalLabel">Edit user</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form th:method="POST" th:action="@{/admin/update}" th:object="${user}">
-                            <label for="id1"></label>
-                            <label for="firstname1"></label>
-                            <label for="lastname1"></label>
-                            <label for="email1"></label>
-                            <label for="age1"></label>
-                            <label for="password1"></label>
-                            <div class="container-fluid text-center">
-                                <table class="table  table-borderless">
-
-                                    <tr>
-                                        <th>ID</th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" th:field="*{id}" id="id1"
-                                                   placeholder="Введите Id пользователя"/></td>
-                                    </tr>
-                                    <tr>
-                                        <th>First Name</th>
-                                    </tr>
-                                    <tr>
-
-                                        <td><input type="text" th:field="*{firstname}" id="firstname1"
-                                                   placeholder="Введите Имя пользователя"/></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Last Name</th>
-                                    </tr>
-                                    <tr>
-
-                                        <td><input type="text" th:field="*{lastname}" id="lastname1"
-                                                   placeholder="Введите фамилию пользователя"/></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Age</th>
-                                    </tr>
-                                    <tr>
-
-                                        <td><input type="text" th:field="*{age}" id="age1"
-                                                   placeholder="Введите возраст пользователя"/></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Password</th>
-                                    </tr>
-                                    <tr>
-
-                                        <td><input type="password" th:field="*{password}" id="password1"
-                                                   placeholder="Введите пароль"/></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Email</th>
-                                    </tr>
-                                    <tr>
-
-                                        <td><input type="text" th:field="*{email}" id="email1"
-                                                   placeholder="Введите почту/логин"/></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Role</th>
-                                    </tr>
-                                    <tr th:each="role : ${allRoles}">
-
-                                        <td>
-                                            <input type="checkbox" th:field="*{roles}" th:value="${role.id}"
-                                                   id="'1role_' + ${role.id}"
-                                                   th:checked="${user.roles.contains(role)}"/>
-                                            <label th:for="'1role_' + ${role.id}" th:text="${role.name}"></label>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <br>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Edit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+        <div class="container-fluid">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#listUsers">All Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#newUser">New User</a>
+            </li>
+        </ul>
+        <div class="tab-content p-2">
+            <div class="tab-pane fade show active" id="listUsers">
+                <div th:replace="listUsers :: listUsers"></div>
+            </div>
+            <div class="tab-pane fade" id="newUser">
+                <div th:replace="create :: create"></div>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
-            Delete
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="deleteModalLabel">Edit user</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h2>ID to Delete</h2>
-                        <form th:method="POST" th:action="@{/admin/delete}">
-                            <label for="idToDelete"></label>
-                            <input type="text" th:name="id" id="idToDelete" placeholder="Введите Id "/>
-                            <br>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
         </div>
-        <br>
-        <br>
+        <div th:replace="edit :: edit"></div>
+
+        <div th:replace="delete :: delete"></div>
 
 
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
