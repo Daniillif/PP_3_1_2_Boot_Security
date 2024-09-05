@@ -29,8 +29,8 @@ public class DBInit {
     public void init() {
         Role admin = roleService.saveRole(new Role("ROLE_ADMIN"));
         Role user = roleService.saveRole(new Role("ROLE_USER"));
-        User user1 = userService.saveUser(new User("Ivan1","1111","1111",roleService.saveRole(admin)));
-        User user2 =userService.saveUser(new User("Ivan2","2222","2222",roleService.saveRole(user)));
+        User user1 = userService.saveUser(new User("Ivan1","1111","ivan1@mail.ru","Ivanov","32",roleService.saveRole(admin)));
+        User user2 =userService.saveUser(new User("Ivan2","2222","ivanovII@gmail.com","Vasin","15",roleService.saveRole(user)));
         Set<Role> roles = new HashSet<>();
         roles.add(admin);
         userService.addRole(user2,roles);

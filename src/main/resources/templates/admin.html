@@ -16,15 +16,16 @@
     <title>Users List</title>
 
 </head>
+
 <body>
 <div th:replace="navbar :: navbar"></div>
 <div class="row">
-    <div class="col-2">
+    <div class="col-2" style="border: 0; padding-right: 0">
         <a class="btn btn-primary d-block p-2 text-bg-primary" href="/admin" role="button" style="text-align: left">Admin</a>
         <a class="btn d-block p-2 text-bg-dark" href="/user" role="button" style="text-align: left">User</a>
         </div>
     <div class="col" style="background-color: whitesmoke">
-        <div class="container text-center">
+
             <h1 style="text-align: left">Admin panel</h1>
             <div>
 
@@ -36,18 +37,20 @@
                 </tr>
                 </thead>
                 <tr>
-                    <th th:width="100">Id</th>
-                    <th th:width="100">Name</th>
-                    <th th:width="100">Login</th>
-                    <th th:width="100">Password</th>
-                    <th th:width="100">Role</th>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>Role</th>
                 </tr>
                 <tr th:each="user : ${users}">
-                    <td th:width="100" th:utext="${user.getId()}"></td>
-                    <td th:width="100" th:utext="${user.getUsername()}"></td>
-                    <td th:width="100" th:utext="${user.getLogin()}"></td>
-                    <td th:width="100" th:utext="${user.getPassword()}"></td>
-                    <td th:width="100" th:each="role : ${user.getRoles()}" th:text="${role.name}"></td>
+                    <td  th:utext="${user.id}"></td>
+                    <td  th:utext="${user.firstname}"></td>
+                    <td  th:utext="${user.lastname}"></td>
+                    <td  th:utext="${user.age}"></td>
+                    <td  th:utext="${user.email}"></td>
+                    <td  th:each="role : ${user.getRoles()}" th:text="${role.name.substring(5)}"></td>
                 </tr>
             </table>
             </div>
@@ -60,15 +63,22 @@
             <form th:method="POST" th:action="@{/admin/create}" th:object="${user}">
 
                 <label for="username"></label>
+                <label for="lastname"></label>
+                <label for="email"></label>
+                <label for="age"></label>
                 <label for="password"></label>
-                <label for="login"></label>
+
                 <table>
                     <tr>
-                        <td><input type="text" th:field="*{username}" id="username"
+                        <td><input type="text" th:field="*{firstname}" id="username"
                                    placeholder="Введите Имя пользователя"/></td>
+                        <td><input type="text" th:field="*{lastname}" id="lastname"
+                                   placeholder="Введите фамилию пользователя"/></td>
+                        <td><input type="text" th:field="*{age}" id="age"
+                                   placeholder="Введите возраст пользователя"/></td>
                         <td><input type="password" th:field="*{password}" id="password" placeholder="Введите пароль "/>
                         </td>
-                        <td><input type="text" th:field="*{login}" id="login" placeholder="Введите логин"/></td>
+                        <td><input type="text" th:field="*{email}" id="email" placeholder="Введите почту/логин"/></td>
                     </tr>
                     <tr th:each="role : ${allRoles}">
                         <td>
@@ -88,17 +98,23 @@
             <h2>Update User</h2>
             <form th:method="POST" th:action="@{/admin/update}" th:object="${user}">
                 <label for="id1"></label>
-                <label for="name1"></label>
+                <label for="username1"></label>
+                <label for="lastname1"></label>
+                <label for="email1"></label>
+                <label for="age1"></label>
                 <label for="password1"></label>
-                <label for="login1"></label>
                 <table>
                     <tr>
                         <td><input type="text" th:field="*{id}" id="id1" placeholder="Введите Id пользователя"/></td>
-                        <td><input type="text" th:field="*{username}" id="name1"
+                        <td><input type="text" th:field="*{firstname}" id="username1"
                                    placeholder="Введите Имя пользователя"/></td>
+                        <td><input type="text" th:field="*{lastname}" id="lastname1"
+                                   placeholder="Введите фамилию пользователя"/></td>
+                        <td><input type="text" th:field="*{age}" id="age1"
+                                   placeholder="Введите возраст пользователя"/></td>
                         <td><input type="password" th:field="*{password}" id="password1" placeholder="Введите пароль"/>
                         </td>
-                        <td><input type="text" th:field="*{login}" id="login1" placeholder="Введите логин"/></td>
+                        <td><input type="text" th:field="*{email}" id="email1" placeholder="Введите почту/логин"/></td>
                     </tr>
                     <tr th:each="role : ${allRoles}">
                         <td>
@@ -133,15 +149,6 @@
                 <input type="submit" value="Добавить роль!"/>
             </form>
             <br>
-            <div sec:authorize="isAuthenticated()">
-                This content is only shown to authenticated users.
-            </div>
-            <div sec:authorize="hasRole('ROLE_ADMIN')">
-                This content is only shown to administrators.
-            </div>
-            <div sec:authorize="hasRole('ROLE_USER')">
-                This content is only shown to users.
-            </div>
             <br>
             <h2>ID to Delete</h2>
             <form th:method="POST" th:action="@{/admin/delete}">
@@ -150,7 +157,7 @@
                 <br>
                 <input type="submit" value="Delete!"/>
             </form>
-        </div>
+
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -10,42 +10,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>UserInfo</title>
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
-<div class="container text-center">
-<div>
-    <h2>User INFO</h2>
+<div class="row">
+    <div class="col-2">
+        <span class="btn-primary d-block p-2 text-bg-primary">User</span>
+    </div>
+    <div class="col" style="background-color: whitesmoke">
+        <div>
+            <h1>User information-page</h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="text-align: left">About user</th>
+                </tr>
+                </thead>
+                <tr>
+                    <th th:width="100">ID</th>
+                    <th th:width="150">First Name</th>
+                    <th th:width="150">Last Name</th>
+                    <th th:width="150">Age</th>
+                    <th th:width="100">Email</th>
+                    <th th:width="100">Role</th>
 
-<table>
-    <tr>
-        <th th:width="100" >ROLE</th>
-        <th th:width="150" >USERNAME</th>
-        <th th:width="100" >Password</th>
-    </tr>
-    <tr th:object= "${userFromCH}">
-        <td th:width="100" th:each="role : ${userFromCH.getAuthorities()}" th:text="${role.authority}"></td>
-        <td th:width="150" th:utext="${userFromCH.getUsername()}"></td>
-        <td th:width="100" th:utext="${userFromCH.getPassword()}"></td>
-    </tr>
-</table>
+                </tr>
+                <tr th:object="${userFromCH}">
+                    <td th:width="150" th:utext="${userFromCH.id}"></td>
+                    <td th:width="150" th:utext="${userFromCH.firstname}"></td>
+                    <td th:width="150" th:utext="${userFromCH.lastname}"></td>
+                    <td th:width="150" th:utext="${userFromCH.age}"></td>
+                    <td th:width="150" th:utext="${userFromCH.email}"></td>
+                    <td th:width="200" th:each="role : ${userFromCH.roles}" th:text="${role.name.substring(5)}"></td>
+                </tr>
+            </table>
 
+        </div>
+    </div>
 </div>
-<div sec:authorize="isAuthenticated()">
-<!--    This content is only shown to authenticated users.-->
-</div>
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-<!--    This content is only shown to administrators.-->
-</div>
-<div sec:authorize="hasRole('ROLE_USER')">
-<!--    This content is only shown to users.-->
-</div>
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

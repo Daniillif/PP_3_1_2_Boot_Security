@@ -7,6 +7,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 
 @Controller
 public class UserController {
@@ -21,7 +24,7 @@ public class UserController {
     @GetMapping("/user")
     public String user(ModelMap model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("userFromCH", userService.loadUserByUsername(username));
+        model.addAttribute("userFromCH",userService.allUsers().stream().filter(x -> x.getUsername().equalsIgnoreCase(username)).collect(Collectors.toList()).get(0));
         return "user";
     }
 

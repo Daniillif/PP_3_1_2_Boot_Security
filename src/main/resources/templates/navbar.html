@@ -3,9 +3,9 @@
     <div class="container-fluid" >
         <div sec:authorize="isAuthenticated()" style="color: white;">
         <div th:object="${userFromCH}">
-            <span style=" font-weight: bold;"><td th:width="150" th:style="' font-weight='" th:utext="${userFromCH.getUsername()}"></td></span>
+            <span style=" font-weight: bold;"><td th:width="150" th:style="' font-weight='" th:utext="${userFromCH.getEmail}"></td></span>
             <span> with roles:</span>
-            <span><td th:width="100" th:each="role : ${userFromCH.getAuthorities()}" th:text="${role.authority}"></td></span>
+            <span><td th:width="100" th:each="role : ${userFromCH.getAuthorities()}" th:text="${role.authority.substring(5)}"></td></span>
         </div>
         </div>
 <!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->

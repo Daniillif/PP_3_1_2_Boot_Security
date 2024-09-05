@@ -22,12 +22,16 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "username",unique = true)
-    private String username;
+    @Column(name = "firstname")
+    private String firstname;
     @Column(name = "password")
     private String password;
-    @Column(name="login")
-    private String login;
+    @Column(name="email",unique = true)
+    private String email;
+    @Column(name="lastname")
+    private String lastname;
+    @Column(name="age")
+    private String age;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -36,10 +40,12 @@ public class User implements UserDetails {
     private Set<Role> roles=new HashSet<>();
 
 
-    public User( String name, String password, String login, Role role) {
-        this.username = name;
+    public User( String firstname, String password, String email, String lastname, String age, Role role) {
+        this.firstname = firstname;
         this.password = password;
-        this.login = login;
+        this.email = email;
+        this.lastname = lastname;
+        this.age = age;
         roles.add(role);
     }
 
@@ -50,7 +56,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -78,11 +84,11 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(login, user.login) && Objects.equals(roles, user.roles);
+        return id == user.id && Objects.equals(firstname, user.firstname) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(lastname, user.lastname) && Objects.equals(age, user.age) && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, login, roles);
+        return Objects.hash(id, firstname, password, email, lastname, age, roles);
     }
 }
