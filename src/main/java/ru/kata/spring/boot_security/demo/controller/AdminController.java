@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -25,12 +26,13 @@ public class AdminController {
     }
 
     @GetMapping(value = "")
-    public String show(ModelMap model) {
+    public String show(ModelMap model, Principal principal) {
         List<User> users = userService.allUsers();
         model.addAttribute("users", users);
         model.addAttribute("user", new User());
         model.addAttribute("allRoles",roleService.getAllRoles());
-        model.addAttribute("userFromCH",userService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        String username = principal.getName();
+        model.addAttribute("userFromCH",userService.loadUserByUsername(username));
         return "/admin";
     }
 
