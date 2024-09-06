@@ -9,10 +9,6 @@ import java.util.Set;
 
 
 public interface UserDao extends JpaRepository<User, Long> {
-    default void addRole(User user, Set<Role> roles){
-        user.getRoles().addAll(roles);
-        save(user);
-    }
     User findUserByEmail(String email);
 
 }

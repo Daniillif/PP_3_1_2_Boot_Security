@@ -44,12 +44,6 @@ public class AdminController {
         userService.updateUser(user);
         return "redirect:/admin";
     }
-    @PostMapping(value = "/addRole")
-    public String addRole(@ModelAttribute(value = "user") User userForm,@RequestParam(value = "userId") Integer userId) {
-        User user = userService.getUserById(userId);
-        userService.addRole(user,userForm.getRoles());
-        return "redirect:/admin";
-    }
 
 
     @PostMapping(value = "/delete")

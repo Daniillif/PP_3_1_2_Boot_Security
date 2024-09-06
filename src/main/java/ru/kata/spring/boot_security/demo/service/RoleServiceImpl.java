@@ -33,7 +33,7 @@ public class RoleServiceImpl implements RoleService {
     public void updateRole(Role role) {
         roleDao.save(role);
     }
-    public Role getRoleById(int id) {
-        return roleDao.getById((long) id);
+    public Role getRoleById(Long id) {
+        return roleDao.getById(id);
     }
 }

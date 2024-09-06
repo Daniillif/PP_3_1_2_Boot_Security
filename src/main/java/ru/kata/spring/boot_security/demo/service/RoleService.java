@@ -9,5 +9,5 @@ public interface RoleService {
     void deleteRole(Role role);
     List<Role> getAllRoles();
     void updateRole(Role role);
-    Role getRoleById(int id);
+    Role getRoleById(Long id);
 }

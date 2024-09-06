@@ -38,26 +38,28 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-
+    @Override
     public List<User> allUsers() {
         return userDao.findAll();
     }
 
-
+    @Override
     @Transactional
     public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userDao.save(user);
         return user;
     }
+    @Override
     @Transactional
     public void addRole(User user, Set<Role> roles) {
-        userDao.addRole(user,roles);
+        user.getRoles().addAll(roles);
+        userDao.save(user);
     }
 
     @Override
-    public User getUserById(Integer userId) {
-        return userDao.getById(Long.valueOf(userId));
+    public User getUserById(Long userId) {
+        return userDao.getById(userId);
     }
 
 
@@ -67,7 +69,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
-
+    @Override
     @Transactional
     public void deleteUser(Long userId) {
         if (userDao.findById(userId).isPresent()) {

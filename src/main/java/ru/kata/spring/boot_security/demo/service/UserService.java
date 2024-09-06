@@ -16,6 +16,6 @@ public interface UserService extends UserDetailsService {
     List<User> allUsers();
     void addRole(User user, Set<Role> roles);
 
-    User getUserById(Integer userId);
+    User getUserById(Long userId);
 
 }
