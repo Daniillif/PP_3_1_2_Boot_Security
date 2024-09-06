@@ -23,8 +23,8 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String user(ModelMap model, Principal principal) {
-        String username = principal.getName();
+    public String user(ModelMap model) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("userFromCH",userService.loadUserByUsername(username));
         return "user";
     }

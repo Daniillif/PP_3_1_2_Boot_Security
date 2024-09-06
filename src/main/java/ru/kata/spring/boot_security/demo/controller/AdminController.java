@@ -31,7 +31,7 @@ public class AdminController {
         model.addAttribute("users", users);
         model.addAttribute("user", new User());
         model.addAttribute("allRoles",roleService.getAllRoles());
-        String username = principal.getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("userFromCH",userService.loadUserByUsername(username));
         return "/admin";
     }

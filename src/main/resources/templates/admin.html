@@ -15,7 +15,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="/static/main.js" th:src="@{/main.js}"></script>
+    <title></title>
 
 </head>
 
@@ -282,62 +284,64 @@
         <!--    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">-->
         <!--        Delete-->
         <!--    </button>-->
-        <!-- Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="deleteModalLabel">Edit user</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h2>ID to Delete</h2>
-                        <form th:method="POST" th:action="@{/admin/delete}">
-                            <table class="table table-striped" style="margin-top: 100px;width: fit-content">
-                                <thead>
-                                <tr>
-                                    <th style="text-align: left">All Users</th>
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <td>
-                                        <label for="idToDelete"></label>
-                                        <input th:name="id" id="idToDelete" readonly th:utext="${userFromList.id}"/>
-                                    </td>
-                                </tr>
 
-                                <tr>
-                                    <th>First Name</th>
-                                    <td th:utext="${userFromList.firstname}"></td>
-                                </tr>
-                                <tr>
-                                    <th>Last Name</th>
-                                    <td th:utext="${userFromList.lastname}"></td>
-                                </tr>
-                                <tr>
-                                    <th>Age</th>
-                                    <td th:utext="${userFromList.age}"></td>
-                                </tr>
-                                <tr>
-                                    <th>Email</th>
-                                    <td th:utext="${userFromList.email}"></td>
-                                </tr>
-                                <tr>
-                                    <th colspan="2">Role</th>
-                                    <td th:each="role : ${userFromList.getRoles()}"
-                                        th:text="${role.name.substring(5)}"></td>
-                                </tr>
-                            </table>
-                            <br>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <!-- Modal -->
+<!--        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">-->
+<!--            <div class="modal-dialog">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h1 class="modal-title fs-5" id="deleteModalLabel">Edit user</h1>-->
+<!--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <h2>ID to Delete</h2>-->
+<!--                        <form th:method="POST" th:action="@{/admin/delete}">-->
+<!--                            <table class="table table-striped" style="margin-top: 100px;width: fit-content">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th style="text-align: left">All Users</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <label for="idToDelete"></label>-->
+<!--                                        <input th:name="id" id="idToDelete" readonly th:utext="${userFromList.id}"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+
+<!--                                <tr>-->
+<!--                                    <th>First Name</th>-->
+<!--                                    <td th:utext="${userFromList.firstname}"></td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <th>Last Name</th>-->
+<!--                                    <td th:utext="${userFromList.lastname}"></td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <th>Age</th>-->
+<!--                                    <td th:utext="${userFromList.age}"></td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <th>Email</th>-->
+<!--                                    <td th:utext="${userFromList.email}"></td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <th colspan="2">Role</th>-->
+<!--                                    <td th:each="role : ${userFromList.getRoles()}"-->
+<!--                                        th:text="${role.name.substring(5)}"></td>-->
+<!--                                </tr>-->
+<!--                            </table>-->
+<!--                            <br>-->
+<!--                            <div class="modal-footer">-->
+<!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                                <button type="submit" class="btn btn-primary">Delete</button>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
 
     </div>
