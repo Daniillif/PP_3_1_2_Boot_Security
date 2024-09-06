@@ -15,7 +15,26 @@
 
 </head>
 <body>
-<div th:replace="navbar :: navbar"></div>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark navbar-dark " data-bs-theme="dark" >
+    <div class="container-fluid" >
+        <div sec:authorize="isAuthenticated()" style="color: white;">
+            <div th:object="${userFromCH}">
+                <span style=" font-weight: bold;"><td th:width="150" th:style="' font-weight='" th:utext="${userFromCH.getEmail}"></td></span>
+                <span> with roles:</span>
+                <span><td th:width="100" th:each="role : ${userFromCH.getAuthorities()}" th:text="${role.authority.substring(5)}"></td></span>
+            </div>
+        </div>
+        <!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item" style="padding-left: 1150px">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+    <!--    </div>-->
+</nav>
+
 <div class="row">
     <div class="col-2" style="border: 0; padding-right: 0">
         <span class="btn-primary d-block p-2 text-bg-primary">User</span>

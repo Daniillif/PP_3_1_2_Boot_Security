@@ -39,9 +39,6 @@ public class AdminController {
         userService.saveUser(user);
         return "redirect:/admin";
     }
-
-
-
     @PostMapping(value = "/update")
     public String update(@ModelAttribute("user") User user) {
         userService.updateUser(user);
