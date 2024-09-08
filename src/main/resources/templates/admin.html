@@ -132,18 +132,14 @@
                                                                type="email" placeholder id="emailEdit">
                                                         <label class="form-label mb-md-0 fw-bold" for="passwordEdit">Password</label>
                                                         <input class="form-control w-50"
-                                                               th:value="${userFromList.password}" th:name="password"
-                                                               type="password" placeholder id="passwordEdit">
+                                                                th:name="password"
+                                                               type="password" placeholder="введите пароль" id="passwordEdit">
                                                         <label class="form-label mb-md-0 fw-bold"
-                                                               for="idEdit">roleEdit</label>
-<!--                                                        <select class="form-select w-50 mb-4" size="2"-->
-<!--                                                                aria-label="size 2" multiple data-coreui-search="true"-->
-<!--                                                                id="roleEdit" th:name="roles">-->
-<!--                                                            <option value="ROLE_USER">USER</option>-->
-<!--                                                            <option value="ROLE_ADMIN">ADMIN</option>-->
-<!--                                                        </select>-->
-                                                        <select class="form-select container-fluid text-center" size="2" th:name="roles"
-                                                                aria-label="Выберите роли" style="width: fit-content" multiple>
+                                                               for="roleEdit">Roles</label>
+                                                        <select class="form-select container-fluid text-center" size="2"
+                                                                th:name="roles"
+                                                                aria-label="Выберите роли" style="width: fit-content"
+                                                                multiple id="roleEdit">
                                                             <option th:each="role : ${allRoles}"
                                                                     th:value="${role.id}"
                                                                     th:text="${role.name}"></option>
@@ -163,69 +159,72 @@
                                 </div>
 
                             <td>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    th:data-bs-target="${'#deleteModal' + userFromList.id}">
-                                Delete
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade" th:id="${'deleteModal' + userFromList.id}" tabindex="-1" aria-labelledby="deleteModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete user</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        th:data-bs-target="${'#deleteModal' + userFromList.id}">
+                                    Delete
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" th:id="${'deleteModal' + userFromList.id}" tabindex="-1"
+                                     aria-labelledby="deleteModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete user</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
 
-                                            <form th:method="POST" th:action="@{/admin/delete}" th:object="${userFromList}">
-                                                <div class="row d-flex justify-content-center input-group-sm text-center">
-                                                    <label class="form-label mb-md-0 fw-bold"
-                                                           for="idDelete">ID</label>
-                                                    <input class="form-control w-50" th:value="${userFromList.id}"
-                                                           th:name="id" type="number" placeholder readonly
-                                                           id="idDelete">
-                                                    <label class="form-label mb-md-0 fw-bold" for="firstnameDelete">First
-                                                        Name</label>
-                                                    <input class="form-control w-50"
-                                                           th:value="${userFromList.firstname}"
-                                                           type="text" placeholder readonly id="firstnameDelete">
-                                                    <label class="form-label mb-md-0 fw-bold" for="lastnameDelete">Last
-                                                        Name</label>
-                                                    <input class="form-control w-50"
-                                                           th:value="${userFromList.lastname}"
-                                                           type="text" placeholder readonly id="lastnameDelete">
-                                                    <label class="form-label mb-md-0 fw-bold"
-                                                           for="ageDelete">Age</label>
-                                                    <input class="form-control w-50" th:value="${userFromList.age}"
-                                                            type="text" placeholder readonly id="ageDelete">
-                                                    <label class="form-label mb-md-0 fw-bold"
-                                                           for="emailDelete">Email</label>
-                                                    <input class="form-control w-50"
-                                                           th:value="${userFromList.email}"
-                                                           type="email" placeholder readonly id="emailDelete">
-                                                    <label class="form-label mb-md-0 fw-bold"
-                                                           for="idDelete">roleDelete</label>
-                                                    <select class="form-select w-50 mb-4" size="2"
-                                                            disabled="disabled" aria-label="size 2" multiple data-coreui-search="true"
-                                                            id="roleDelete" >
-                                                        <option value="ROLE_USER">USER</option>
-                                                        <option value="ROLE_ADMIN">ADMIN</option>
-                                                    </select>
-                                                </div>
-                                                <br>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close
-                                                    </button>
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                </div>
-                                            </form>
+                                                <form th:method="POST" th:action="@{/admin/delete}"
+                                                      th:object="${userFromList}">
+                                                    <div class="row d-flex justify-content-center input-group-sm text-center">
+                                                        <label class="form-label mb-md-0 fw-bold"
+                                                               for="idDelete">ID</label>
+                                                        <input class="form-control w-50" th:value="${userFromList.id}"
+                                                               th:name="id" type="number" placeholder readonly
+                                                               id="idDelete">
+                                                        <label class="form-label mb-md-0 fw-bold" for="firstnameDelete">First
+                                                            Name</label>
+                                                        <input class="form-control w-50"
+                                                               th:value="${userFromList.firstname}"
+                                                               type="text" placeholder readonly id="firstnameDelete">
+                                                        <label class="form-label mb-md-0 fw-bold" for="lastnameDelete">Last
+                                                            Name</label>
+                                                        <input class="form-control w-50"
+                                                               th:value="${userFromList.lastname}"
+                                                               type="text" placeholder readonly id="lastnameDelete">
+                                                        <label class="form-label mb-md-0 fw-bold"
+                                                               for="ageDelete">Age</label>
+                                                        <input class="form-control w-50" th:value="${userFromList.age}"
+                                                               type="text" placeholder readonly id="ageDelete">
+                                                        <label class="form-label mb-md-0 fw-bold"
+                                                               for="emailDelete">Email</label>
+                                                        <input class="form-control w-50"
+                                                               th:value="${userFromList.email}"
+                                                               type="email" placeholder readonly id="emailDelete">
+                                                        <label class="form-label mb-md-0 fw-bold"
+                                                               for="roleDelete">Roles</label>
+                                                        <select class="form-select w-50 mb-4" size="2"
+                                                                disabled="disabled" aria-label="size 2" multiple
+                                                                data-coreui-search="true"
+                                                                id="roleDelete">
+                                                            <option value="ROLE_USER">USER</option>
+                                                            <option value="ROLE_ADMIN">ADMIN</option>
+                                                        </select>
+                                                    </div>
+                                                    <br>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close
+                                                        </button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </tr>
                     </table>
                 </div>
@@ -233,68 +232,42 @@
                     <h2>Add to User List</h2>
                     <div class="container-fluid text-center">
                         <form th:method="POST" th:action="@{/admin/create}" th:object="${user}">
+                            <div class="row d-flex justify-content-center input-group-sm text-center">
 
-                            <label for="username"></label>
-                            <label for="lastname"></label>
-                            <label for="email"></label>
-                            <label for="age"></label>
-                            <label for="password"></label>
 
-                            <table class="table table-borderless ">
-                                <thead>
-                                <tr>
-                                    <th style="text-align: left">Add new user</th>
+                                <h2>Add new user</h2>
+                                <label class="form-label mb-md-0 fw-bold" for="firstnameCreate">First Name</label>
 
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <th>First Name</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" th:field="*{firstname}" id="username"
-                                               placeholder="Введите Имя пользователя"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Last Name</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" th:field="*{lastname}" id="lastname"
-                                               placeholder="Введите фамилию пользователя"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Age</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" th:field="*{age}" id="age"
-                                               placeholder="Введите возраст пользователя"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Email</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" th:field="*{email}" id="email"
-                                               placeholder="Введите почту/логин"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Password</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="password" th:field="*{password}" id="password"
-                                               placeholder="Введите пароль "/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Role</th>
-                                </tr>
-                            </table>
-                            <select class="form-select container-fluid text-center" size="2" th:field="*{roles}"
-                                    aria-label="Выберите роли" style="width: fit-content">
-                                <option th:each="role : ${allRoles}"
-                                        th:value="${role.id}"
-                                        th:text="${role.name}"></option>
-                            </select>
-                            <br>
-                            <input type="submit" value="Create!"/>
+                                <input class="form-control w-50" type="text" th:field="*{firstname}" id="firstnameCreate"
+                                       placeholder="Введите Имя пользователя"/>
+                                <label class="form-label mb-md-0 fw-bold" for="lastnameCreate">Last Name</label>
+
+                                <input class="form-control w-50" type="text" th:field="*{lastname}" id="lastnameCreate"
+                                       placeholder="Введите фамилию пользователя"/>
+                                <label class="form-label mb-md-0 fw-bold" for="ageCreate">Age</label>
+
+                                <input class="form-control w-50" type="text" th:field="*{age}" id="ageCreate"
+                                       placeholder="Введите возраст пользователя"/>
+                                <label class="form-label mb-md-0 fw-bold" for="emailCreate">Email</label>
+
+                                <input class="form-control w-50" type="text" th:field="*{email}" id="emailCreate"
+                                       placeholder="Введите почту/логин"/>
+                                <label class="form-label mb-md-0 fw-bold" for="passwordCreate">Password</label>
+
+                                <input class="form-control w-50" type="password" th:field="*{password}" id="passwordCreate"
+                                       placeholder="Введите пароль "/>
+
+                                <label class="form-label mb-md-0 fw-bold" for="roleCreate">Roles</label>
+
+                                <select class="form-select container-fluid text-center" size="2" th:field="*{roles}"
+                                        aria-label="Выберите роли" style="width: fit-content" id="roleCreate" multiple>
+                                    <option th:each="role : ${allRoles}"
+                                            th:value="${role.id}"
+                                            th:text="${role.name}"></option>
+                                </select>
+                                <br>
+                                <input type="submit" value="Create!"/>
+                            </div>
                         </form>
                     </div>
                 </div>
