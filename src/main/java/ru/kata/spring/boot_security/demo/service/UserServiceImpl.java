@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> allUsers() {
+    public List<User> showAllUsers() {
         return userDao.findAll();
     }
 
@@ -65,15 +65,22 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void updateUser(User user) {
+    public boolean updateUser(User user) {
+        if (userDao.getById(user.getId()) == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
+        return true;
     }
     @Override
     @Transactional
-    public void deleteUser(Long userId) {
+    public boolean deleteUser(Long userId) {
         if (userDao.findById(userId).isPresent()) {
             userDao.deleteById(userId);
+            return true;
+        }else {
+            return false;
         }
     }
 }
