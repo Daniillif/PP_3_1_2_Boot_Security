@@ -20,30 +20,24 @@ public class RestControllerApi {
         this.userService = userService;
     }
 
-    @GetMapping(value = "")
+    @GetMapping
     public List<User> showAllUsers() {
         return userService.showAllUsers();
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<?> create(@RequestBody User user) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void create(@RequestBody User user) {
         userService.saveUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/update")
-    public ResponseEntity<?> update(@RequestBody User user) {
-        final boolean updated = userService.updateUser(user);
-        return updated
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    public void update(@RequestBody User user) {
+         userService.updateUser(user);
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<?> delete( @PathVariable Long id) {
-        final boolean deleted = userService.deleteUser(id);
-        return deleted
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    public void delete( @PathVariable Long id) {
+         userService.deleteUser(id);
     }
 }

@@ -65,22 +65,21 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public boolean updateUser(User user) {
+    public void updateUser(User user) {
         if (userDao.getById(user.getId()) == null) {
             throw new UsernameNotFoundException("User not found");
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
-        return true;
     }
     @Override
     @Transactional
-    public boolean deleteUser(Long userId) {
+    public void deleteUser(Long userId) {
         if (userDao.findById(userId).isPresent()) {
             userDao.deleteById(userId);
-            return true;
+
         }else {
-            return false;
+            throw new UsernameNotFoundException("User not found");
         }
     }
 }
