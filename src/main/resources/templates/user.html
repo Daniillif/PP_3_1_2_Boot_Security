@@ -1,91 +1,55 @@
-<!doctype html>
-<html
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-        lang="en">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-    <title></title>
-
+    <div th:include="/parts/metas"></div>
+    <title>User page</title>
+    <div th:include="/parts/navbar"></div>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark navbar-dark " data-bs-theme="dark">
-    <div class="container-fluid">
-        <div sec:authorize="isAuthenticated()" style="color: white;">
-            <div th:object="${userFromCH}">
-                <span style=" font-weight: bold;"><td th:width="150" th:style="' font-weight='"
-                                                      th:utext="${userFromCH.getEmail}"></td></span>
-                <span> with roles:</span>
-                <span><td th:width="100" th:each="role : ${userFromCH.getAuthorities()}"
-                          th:text="${role.authority.substring(5)}"></td></span>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 px-md-0">
+            <br>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a th:href="@{/admin}" style="width: 100%"
+                   class="btn btn-link btn-sm btn-block text-left"
+                   aria-current="true">Admin</a>
+            </div>
+            <div sec:authorize-url="/user">
+                <a th:href="@{/user}" style="width: 100%"
+                   class="btn btn-primary btn-sm btn-block text-left active">User</a>
             </div>
         </div>
-        <!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item" style="padding-left: 1150px">
-                <a class="nav-link" href="/logout">Logout</a>
-            </li>
-        </ul>
-    </div>
-    <!--    </div>-->
-</nav>
-
-<div class="row">
-    <div class="col-2" style="border: 0; padding-right: 0">
-        <span class="btn-primary d-block p-2 text-bg-primary">User</span>
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
-            <a class="btn d-block p-2" href="/admin" role="button" style="text-align: left">Admin</a>
-        </div>
-    </div>
-    <div class="col" style="background-color: whitesmoke">
-        <div>
-            <h1>User information-page</h1>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th style="text-align: left">About user</th>
-                </tr>
-                </thead>
-                <tr>
-                    <th th:width="100">ID</th>
-                    <th th:width="150">First Name</th>
-                    <th th:width="150">Last Name</th>
-                    <th th:width="150">Age</th>
-                    <th th:width="100">Email</th>
-                    <th th:width="100">Role</th>
-
-                </tr>
-                <tr th:object="${userFromCH}">
-                    <td th:width="150" th:utext="${userFromCH.id}"></td>
-                    <td th:width="150" th:utext="${userFromCH.firstname}"></td>
-                    <td th:width="150" th:utext="${userFromCH.lastname}"></td>
-                    <td th:width="150" th:utext="${userFromCH.age}"></td>
-                    <td th:width="150" th:utext="${userFromCH.email}"></td>
-                    <td th:width="200" th:each="role : ${userFromCH.roles}" th:text="${role.name.substring(5)}"></td>
-                </tr>
-            </table>
-
+        <div class="col-10 bg-light vh-100">
+            <br>
+            <h3>User information-page</h3>
+            <div class="card">
+                <div class="card-header">
+                    About user
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tBodyUser">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-<script type="text/javascript" th:src="@{/static/js/main.js}"></script>
-
+<div th:include="/parts/scripts"></div>
+<script src="/js/user.js"></script>
 </body>
 </html>
