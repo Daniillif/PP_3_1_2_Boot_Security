@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long userId) {
-        return userDao.getById(userId);
+        return userDao.getUserById(userId);
     }
 
 
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(Long userId) {
         if (userDao.findById(userId).isPresent()) {
-            userDao.deleteById(userId);
+            userDao.deleteUserById(userId);
 
         }else {
             throw new UsernameNotFoundException("User not found");

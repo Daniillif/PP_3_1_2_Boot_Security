@@ -10,5 +10,6 @@ import java.util.Set;
 
 public interface UserDao extends JpaRepository<User, Long> {
     User findUserByEmail(String email);
-
+    User getUserById(Long id);
+    void deleteUserById(Long id);
 }
