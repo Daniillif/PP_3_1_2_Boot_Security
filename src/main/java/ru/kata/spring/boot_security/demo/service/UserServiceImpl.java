@@ -11,6 +11,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -81,6 +82,11 @@ public class UserServiceImpl implements UserService {
         }else {
             throw new UsernameNotFoundException("User not found");
         }
+    }
+    @Override
+    public User findByEmail(String email) throws UsernameNotFoundException {
+        return Optional.ofNullable(userDao.findUserByEmail(email))
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email: '%s' not found", email)));
     }
 }
 
