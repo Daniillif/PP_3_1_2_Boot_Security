@@ -32,7 +32,7 @@ public class User implements UserDetails {
     private String lastname;
     @Column(name="age")
     private String age;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
