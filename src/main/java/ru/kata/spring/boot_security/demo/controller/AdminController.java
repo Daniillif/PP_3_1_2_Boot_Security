@@ -1,62 +1,53 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
-@Controller()
-@RequestMapping("/admin")
+//@CrossOrigin
+@RestController
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
+@RequestMapping("/api/users")
 public class AdminController {
-    private UserService userService;
-    private RoleService roleService;
-    @Autowired
-    public AdminController(UserService userService,RoleService roleService) {
+    private final UserService userService;
+
+    public AdminController(UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
-    @GetMapping(value = "")
-    public String show(ModelMap model) {
-        List<User> users = userService.allUsers();
-        model.addAttribute("users", users);
-        model.addAttribute("user", new User());
-        model.addAttribute("allRoles",roleService.getAllRoles());
-        return "/admin";
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> userList = userService.showAllUsers();
+        return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/create")
-    public String create(@ModelAttribute("user") User user) {
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+        User userById = userService.getUserById(id);
+        return new ResponseEntity<>(userById, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<HttpStatus> createUser(@RequestBody @Valid User user) {
         userService.saveUser(user);
-        return "redirect:/admin";
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-
-//в апдейте и креэйт принимать коллекцию ролей(может быть лист айди) чек поинт чтобы галочки были
-
-    @PostMapping(value = "/update")
-    public String update(@ModelAttribute("user") User user) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<HttpStatus> updateUser(@PathVariable("id") Long id, @RequestBody @Valid User user) {
         userService.updateUser(user);
-        return "redirect:/admin";
-    }
-    @PostMapping(value = "/addRole")
-    public String addRole(@ModelAttribute(value = "user") User userForm,@RequestParam(value = "userId") Integer userId) {
-        User user = userService.getUserById(userId);
-        userService.addRole(user,userForm.getRoles());
-        return "redirect:/admin";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-    @PostMapping(value = "/delete")
-    public String delete( @RequestParam(value = "id", required = false) Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/admin";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -11,6 +11,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -28,8 +29,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userDao.findUserByEmail(email);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -38,41 +39,54 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-
-    public List<User> allUsers() {
+    @Override
+    public List<User> showAllUsers() {
         return userDao.findAll();
     }
 
-
+    @Override
     @Transactional
     public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userDao.save(user);
         return user;
     }
+    @Override
     @Transactional
     public void addRole(User user, Set<Role> roles) {
-        userDao.addRole(user,roles);
+        user.getRoles().addAll(roles);
+        userDao.save(user);
     }
 
     @Override
-    public User getUserById(Integer userId) {
-        return userDao.getById(Long.valueOf(userId));
+    public User getUserById(Long userId) {
+        return userDao.getUserById(userId);
     }
 
 
     @Transactional
     @Override
     public void updateUser(User user) {
+        if (userDao.getById(user.getId()) == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
-
+    @Override
     @Transactional
     public void deleteUser(Long userId) {
         if (userDao.findById(userId).isPresent()) {
-            userDao.deleteById(userId);
+            userDao.deleteUserById(userId);
+
+        }else {
+            throw new UsernameNotFoundException("User not found");
         }
+    }
+    @Override
+    public User findByEmail(String email) throws UsernameNotFoundException {
+        return Optional.ofNullable(userDao.findUserByEmail(email))
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email: '%s' not found", email)));
     }
 }
 

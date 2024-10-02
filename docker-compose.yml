@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  mysql:
+    ports:
+      - "3307:3306"
+    image: 'mysql:latest'
+    restart: 'always'
+    container_name: 'java-mysql'
+    environment:
+      MYSQL_USER: daniil
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: springdb

@@ -1,31 +1,55 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
-    <title>UserInfo</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
+    <div th:include="/parts/metas"></div>
+    <title>User page</title>
+    <div th:include="/parts/navbar"></div>
 </head>
 <body>
-<div>
-    <h2>User INFO</h2>
-
-<table>
-    <tr>
-        <th th:width="100" >ROLE</th>
-        <th th:width="150" >USERNAME</th>
-        <th th:width="100" >Password</th>
-    </tr>
-    <tr th:object= "${user}">
-        <td th:width="100" th:each="role : ${user.getAuthorities()}" th:text="${role.authority}"></td>
-        <td th:width="150" th:utext="${user.getUsername()}"></td>
-        <td th:width="100" th:utext="${user.getPassword()}"></td>
-    </tr>
-</table>
-
-        <h4><a href="/logout">Выйти</a></h4>
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 px-md-0">
+            <br>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a th:href="@{/admin}" style="width: 100%"
+                   class="btn btn-link btn-sm btn-block text-left"
+                   aria-current="true">Admin</a>
+            </div>
+            <div sec:authorize-url="/user">
+                <a th:href="@{/user}" style="width: 100%"
+                   class="btn btn-primary btn-sm btn-block text-left active">User</a>
+            </div>
+        </div>
+        <div class="col-10 bg-light vh-100">
+            <br>
+            <h3>User information-page</h3>
+            <div class="card">
+                <div class="card-header">
+                    About user
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tBodyUser">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div th:include="/parts/scripts"></div>
+<script src="/js/user.js"></script>
 </body>
 </html>
